@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mailchain/sdk": "^0.18.4",
     "@react-email/button": "0.0.8",
     "@react-email/components": "^0.0.5",
     "@react-email/html": "0.0.4",
