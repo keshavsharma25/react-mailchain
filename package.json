@@ -3,12 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "email-dev": "email dev",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-email/button": "0.0.8",
+    "@react-email/components": "^0.0.5",
+    "@react-email/html": "0.0.4",
     "@types/node": "18.15.11",
     "@types/react": "18.0.33",
     "@types/react-dom": "18.0.11",
@@ -17,6 +21,7 @@
     "next": "13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-email": "1.9.1",
     "typescript": "5.0.3"
   }
 }
