@@ -23,12 +23,19 @@ export const storeOTPHash = async (mail: string, hash: string) => {
 };
 
 export const readOTPHash = async (mail: string): Promise<string | null> => {
-  if (redisConnect.status === "ready") {
-    return await redisConnect.get(`otpHash:${mail}`);
-  } else {
-    await redisConnect.connect();
-    return await redisConnect.get(`otpHash:${mail}`);
-  }
+  let response: string | null = null;
+
+  redisConnect.on("ready", async () => {
+    response = await redisConnect.get(`otpHash:${mail}`);
+  });
+
+  redisConnect.on("connect", async () => {});
+
+  redisConnect.on("error", (err) => {
+    console.log(err);
+  });
+
+  return response;
 };
 
 export const verifyOTP = async (

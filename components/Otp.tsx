@@ -1,4 +1,4 @@
-import { verifyOTP } from "@/utils/otpUtils";
+import axios from "axios";
 import { useState } from "react";
 
 type Props = {
@@ -16,9 +16,16 @@ export const OTP = ({ mail, verified, setVerified }: Props) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(`OTP: ${otp}`);
     // Here you can add your API call to verify the OTP and complete the signup process
-    const result = await verifyOTP(mail, Number(otp));
+
+    const { data: result } = await axios({
+      method: "POST",
+      url: "/api/verifyOTP",
+      data: {
+        mail: mail,
+        otp: otp,
+      },
+    });
 
     if (result) {
       setVerified(true);
