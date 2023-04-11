@@ -81,7 +81,7 @@ export const Signin = ({ setMailchainAddr, setIsSignin }: Props) => {
             className="px-4 py-2 font-bold text-white bg-[#635f07] rounded hover:bg-[#2b2902] focus:outline-none focus:shadow-outline"
             disabled={isLoading}
           >
-            Sign Up
+            Sign In
           </button>
         ) : (
           <div className="flex items-center justify-center">

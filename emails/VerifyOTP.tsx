@@ -6,137 +6,49 @@ import {
   Html,
   Img,
   Section,
+  Tailwind,
   Text,
 } from "@react-email/components";
 
 interface VerifyOTPProps {
   validationCode?: string;
-  logoSrc?: string;
 }
 
-export const VerifyOTP = ({ validationCode, logoSrc }: VerifyOTPProps) => (
+const baseURL = process.env.NEXT_PUBLIC_VERCEL_URL
+  ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+  : "";
+
+export const VerifyOTP = ({ validationCode }: VerifyOTPProps) => (
   <Html>
-    <Head />
-    <Body style={main}>
-      <Container style={container}>
-        <Img
-          src={
-            logoSrc
-              ? logoSrc
-              : `https://image.lexica.art/full_jpg/6fe6f538-5358-41bc-bac8-c16dbc7b1ba3`
-          }
-          width="88"
-          height="88"
-          alt=""
-          style={logo}
-        />
-        <Text style={tertiary}>Verify Your Identity</Text>
-        <Heading style={secondary}>
-          Enter the following code to verify your identity.
-        </Heading>
-        <Section style={codeContainer}>
-          <Text style={code}>{validationCode ? validationCode : "14423"}</Text>
-        </Section>
-      </Container>
-    </Body>
+    <Tailwind>
+      <Head />
+      <Body className="font-sans bg-gray-50">
+        <Container className="bg-white border border-gray-200 rounded-lg shadow-md mt-8 mx-auto p-8">
+          <div className="flex flex-col items-center">
+            <Img
+              src={`${baseURL}/logo.png`}
+              width={88}
+              height={88}
+              alt=""
+              className="my-4 "
+            />
+            <Text className="text-blue-500 text-xs font-bold tracking-wide uppercase mb-2">
+              Verify Your Identity
+            </Text>
+            <Heading className="text-gray-800 text-2xl font-medium text-center mb-4">
+              Enter the following code to verify your identity.
+            </Heading>
+          </div>
+          <Section className="bg-gray-100 rounded-md px-4 py-6 flex items-center justify-center mb-6">
+            <Text className="text-4xl font-bold text-gray-800 tracking-wide">
+              {validationCode}
+            </Text>
+          </Section>
+          <Text className="text-gray-600 text-base font-normal leading-6 text-center">
+            If you did not request this code, please disregard this message.
+          </Text>
+        </Container>
+      </Body>
+    </Tailwind>
   </Html>
 );
-
-export default VerifyOTP;
-
-const main = {
-  backgroundColor: "#ffffff",
-  fontFamily: "HelveticaNeue,Helvetica,Arial,sans-serif",
-};
-
-const container = {
-  backgroundColor: "#ffffff",
-  border: "1px solid #eee",
-  borderRadius: "5px",
-  boxShadow: "0 5px 10px rgba(20,50,70,.2)",
-  marginTop: "20px",
-  width: "360px",
-  margin: "0 auto",
-  padding: "68px 0 130px",
-};
-
-const logo = {
-  margin: "0 auto",
-};
-
-const tertiary = {
-  color: "#0a85ea",
-  fontSize: "11px",
-  fontWeight: 700,
-  fontFamily: "HelveticaNeue,Helvetica,Arial,sans-serif",
-  height: "16px",
-  letterSpacing: "0",
-  lineHeight: "16px",
-  margin: "16px 8px 8px 8px",
-  textTransform: "uppercase" as const,
-  textAlign: "center" as const,
-};
-
-const secondary = {
-  color: "#000",
-  display: "inline-block",
-  fontFamily: "HelveticaNeue-Medium,Helvetica,Arial,sans-serif",
-  fontSize: "20px",
-  fontWeight: 500,
-  lineHeight: "24px",
-  marginBottom: "0",
-  marginTop: "0",
-  textAlign: "center" as const,
-};
-
-const codeContainer = {
-  background: "rgba(0,0,0,.05)",
-  borderRadius: "4px",
-  margin: "16px auto 14px",
-  verticalAlign: "middle",
-  width: "280px",
-};
-
-const code = {
-  color: "#000",
-  display: "inline-block",
-  fontFamily: "HelveticaNeue-Bold",
-  fontSize: "32px",
-  fontWeight: 700,
-  letterSpacing: "6px",
-  lineHeight: "40px",
-  paddingBottom: "8px",
-  paddingTop: "8px",
-  margin: "0 auto",
-  width: "100%",
-  textAlign: "center" as const,
-};
-
-const paragraph = {
-  color: "#444",
-  fontSize: "15px",
-  fontFamily: "HelveticaNeue,Helvetica,Arial,sans-serif",
-  letterSpacing: "0",
-  lineHeight: "23px",
-  padding: "0 40px",
-  margin: "0",
-  textAlign: "center" as const,
-};
-
-const link = {
-  color: "#444",
-  textDecoration: "underline",
-};
-
-const footer = {
-  color: "#000",
-  fontSize: "12px",
-  fontWeight: 800,
-  letterSpacing: "0",
-  lineHeight: "23px",
-  margin: "0",
-  marginTop: "20px",
-  fontFamily: "HelveticaNeue,Helvetica,Arial,sans-serif",
-  textAlign: "center" as const,
-  textTransform: "uppercase" as const,
-};
