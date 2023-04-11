@@ -1,4 +1,4 @@
-import { OTP, Signup } from "@/components";
+import { Login, OTP, Signup } from "@/components";
 import { useState } from "react";
 
 export default function Home() {
@@ -17,6 +17,8 @@ export default function Home() {
           setVerified={setVerified}
         />
       )}
+
+      {/* <Login onLogin={} /> */}
     </div>
   );
 }
