@@ -32,8 +32,6 @@ export const verifyOTP = async (
   otp: number
 ): Promise<boolean> => {
   const hash = await readOTPHash(mail);
-  console.log(hash);
   const hashedOTP = hashOTP(otp);
-  console.log(hashedOTP);
   return hashedOTP === hash;
 };

@@ -31,6 +31,8 @@ export const OTP = ({ mail, verified, setVerified }: Props) => {
     if (data.result) {
       setVerified(true);
     } else {
+      setOTP("");
+      setVerified(false);
     }
   };
 
@@ -62,9 +64,15 @@ export const OTP = ({ mail, verified, setVerified }: Props) => {
         </button>
       </div>
 
-      {verified && (
+      {verified === null ? (
+        <div></div>
+      ) : verified === true ? (
         <div className="flex items-center justify-center mt-4">
           <p className="text-green-500">OTP verified successfully!</p>
+        </div>
+      ) : (
+        <div className="flex items-center justify-center mt-4">
+          <p className="text-red-500">OTP verification failed! Try again</p>
         </div>
       )}
     </form>
