@@ -3,7 +3,7 @@ import { useState } from "react";
 
 export default function Home() {
   const [mailchainAddr, setMailchainAddr] = useState<string>("");
-  const [verified, setVerified] = useState<boolean>(false);
+  const [verified, setVerified] = useState<boolean | null>(null);
   const [isSignup, setIsSignup] = useState<boolean>(false);
 
   return (

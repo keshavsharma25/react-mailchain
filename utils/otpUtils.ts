@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import { redisConnect } from "./redisClient";
+import { Redis } from "ioredis";
 
 export const generateSecureOTP = (): string => {
   const buffer = crypto.randomBytes(4);
@@ -14,26 +14,15 @@ export const hashOTP = (otp: number): string => {
 };
 
 export const storeOTPHash = async (mail: string, hash: string) => {
-  if (redisConnect.status === "ready") {
-    await redisConnect.set(`otpHash:${mail}`, hash, "EX", 60 * 5);
-  } else {
-    await redisConnect.connect();
-    await redisConnect.set(`otpHash:${mail}`, hash, "EX", 60 * 5);
-  }
+  const redis = new Redis(process.env.NEXT_PUBLIC_REDIS_URL!);
+  await redis.set(`otpHash:${mail}`, hash, "EX", 60 * 5);
+  redis.disconnect();
 };
 
 export const readOTPHash = async (mail: string): Promise<string | null> => {
-  let response: string | null = null;
-
-  redisConnect.on("ready", async () => {
-    response = await redisConnect.get(`otpHash:${mail}`);
-  });
-
-  redisConnect.on("connect", async () => {});
-
-  redisConnect.on("error", (err) => {
-    console.log(err);
-  });
+  const redis = new Redis(process.env.NEXT_PUBLIC_REDIS_URL!);
+  const response = await redis.get(`otpHash:${mail}`);
+  redis.disconnect();
 
   return response;
 };
@@ -43,6 +32,8 @@ export const verifyOTP = async (
   otp: number
 ): Promise<boolean> => {
   const hash = await readOTPHash(mail);
+  console.log(hash);
   const hashedOTP = hashOTP(otp);
+  console.log(hashedOTP);
   return hashedOTP === hash;
 };

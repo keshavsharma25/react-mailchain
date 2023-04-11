@@ -3,8 +3,8 @@ import { useState } from "react";
 
 type Props = {
   mail: string;
-  verified: boolean;
-  setVerified: React.Dispatch<React.SetStateAction<boolean>>;
+  verified: boolean | null;
+  setVerified: React.Dispatch<React.SetStateAction<boolean | null>>;
 };
 
 export const OTP = ({ mail, verified, setVerified }: Props) => {
@@ -18,7 +18,7 @@ export const OTP = ({ mail, verified, setVerified }: Props) => {
     e.preventDefault();
     // Here you can add your API call to verify the OTP and complete the signup process
 
-    const { data: result } = await axios({
+    const { data } = await axios({
       method: "POST",
       url: "/api/verifyOTP",
       data: {
@@ -27,8 +27,10 @@ export const OTP = ({ mail, verified, setVerified }: Props) => {
       },
     });
 
-    if (result) {
+    console.log(data.result);
+    if (data.result) {
       setVerified(true);
+    } else {
     }
   };
 
