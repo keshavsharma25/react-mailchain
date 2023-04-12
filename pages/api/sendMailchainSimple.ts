@@ -23,7 +23,7 @@ export default async function handler(
   const serverAddress = await mailchain.user();
 
   const code = Number(generateSecureOTP());
-  const emailHtml = renderVerifyOTP(code.toString());
+  const emailHtml = renderVerifyOTP(code);
 
   const { data, error } = await mailchain.sendMail({
     from: serverAddress.address,

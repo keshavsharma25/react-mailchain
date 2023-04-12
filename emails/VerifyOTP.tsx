@@ -11,7 +11,7 @@ import {
 } from "@react-email/components";
 
 interface VerifyOTPProps {
-  validationCode?: string;
+  validationCode?: number;
 }
 
 const baseURL = process.env.NEXT_PUBLIC_VERCEL_URL
