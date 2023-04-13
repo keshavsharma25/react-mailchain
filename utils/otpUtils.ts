@@ -1,10 +1,10 @@
 import crypto from "crypto";
 import { Redis } from "ioredis";
 
-export const generateSecureOTP = (): string => {
+export const generateSecureOTP = (): number => {
   const buffer = crypto.randomBytes(4);
   const OTP = buffer.readUInt32BE(0) % 1000000;
-  return OTP.toString().padStart(6, "0");
+  return Number(OTP.toString().padStart(6, "0"));
 };
 
 export const hashOTP = (otp: number): string => {
