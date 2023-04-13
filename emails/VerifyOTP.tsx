@@ -14,10 +14,6 @@ interface VerifyOTPProps {
   validationCode?: number;
 }
 
-const baseURL = process.env.NEXT_PUBLIC_VERCEL_URL
-  ? process.env.NEXT_PUBLIC_VERCEL_URL
-  : "";
-
 export const VerifyOTP = ({ validationCode }: VerifyOTPProps) => (
   <Html>
     <Tailwind>
@@ -26,7 +22,7 @@ export const VerifyOTP = ({ validationCode }: VerifyOTPProps) => (
         <Container className="bg-white border border-gray-200 rounded-lg shadow-md mt-8 mx-auto p-8">
           <div className="flex flex-col items-center">
             <Img
-              src={`${baseURL}/logo.png`}
+              src={`https://assets.awwwards.com/awards/images/2012/12/best-logo-2013-3.jpg`}
               width={88}
               height={88}
               alt=""
