@@ -26,7 +26,7 @@ export const Signin = ({ setMailchainAddr, setIsSignin }: Props) => {
     try {
       const { data: sendMail } = await axios({
         method: "POST",
-        url: "/api/sendMailchainSimple",
+        url: "/api/sendSimpleMail",
         data: {
           to: email,
         },
