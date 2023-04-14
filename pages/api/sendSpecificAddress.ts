@@ -1,5 +1,4 @@
 import { sendMailchainSpecificAddress } from "@/utils/mailchainUtils";
-import { SentMail } from "@mailchain/sdk";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
