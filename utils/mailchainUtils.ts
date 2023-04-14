@@ -15,16 +15,17 @@ import { renderVerifyOTP } from "./renderVerifyOTP";
 export const sendMailchainSimple = async (to: string) => {
   const secretRecoveryPhrase = process.env.NEXT_PUBLIC_SECRET_RECOVERY_PHRASE!;
 
-  if (secretRecoveryPhrase == undefined) {
+  if (secretRecoveryPhrase === undefined) {
     throw new Error("You must provide a secret recovery phrase in .env");
   }
+
   const mailchain = Mailchain.fromSecretRecoveryPhrase(secretRecoveryPhrase);
 
   const fromAddress = await mailchain.user();
+  const code = generateSecureOTP(); // generating 6 digits OTP using crypto.randomBytes(4)
+  const emailHtml = renderVerifyOTP(Number(code)); // rendering React-email component to HTML
 
-  const code = generateSecureOTP();
-  const emailHtml = renderVerifyOTP(Number(code));
-
+  // sending mail
   const { data, error } = await mailchain.sendMail({
     from: fromAddress.address,
     to: [to],
@@ -35,8 +36,7 @@ export const sendMailchainSimple = async (to: string) => {
     },
   });
 
-  await storeOTPHash(to, hashOTP(Number(code)));
-
+  await storeOTPHash(to, hashOTP(Number(code))); // storing OTP hash to redis
   return { data, error };
 };
 
@@ -60,9 +60,16 @@ export const sendMailchainSpecificAddress = async (toAddress: string) => {
 
   const fromAddress = process.env.NEXT_PUBLIC_SENDER_ADDRESS!;
 
-  const code = generateSecureOTP();
-  const emailHtml = renderVerifyOTP(Number(code));
+  if (fromAddress === undefined) {
+    throw new Error(
+      "You must provide a sender address along with its private messaging key in .env"
+    );
+  }
 
+  const code = generateSecureOTP(); // generating 6 digits OTP using crypto.randomBytes(4)
+  const emailHtml = renderVerifyOTP(Number(code)); // rendering React-email component  to HTML
+
+  // sending mail
   const { data, error } = await mailSender.sendMail({
     from: fromAddress,
     to: [toAddress],
@@ -73,7 +80,6 @@ export const sendMailchainSpecificAddress = async (toAddress: string) => {
     },
   });
 
-  await storeOTPHash(toAddress, hashOTP(Number(code)));
-
+  await storeOTPHash(toAddress, hashOTP(Number(code))); // storing OTP hash to redis
   return { data, error };
 };
