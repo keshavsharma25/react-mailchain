@@ -1,38 +1,70 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# React-Email for Mailchain
+
+Welcome to this tutorial on creating email templates for Mailchain using React-Email. Mailchain is a decentralized messaging protocol that allows users to send and receive messages across different web3 identities. React-Email is a popular library that makes it easy to create and send custom HTML email templates.
+Link to the blog for reference: [Using React-Email to create templates for Mailchain](https://0xkeshav.hashnode.dev/using-react-email-to-create-templates-for-mailchain)
+
+## Prerequisites
+
+To run this project, you need to have the following:
+
+- A Mailchain account and supported wallet or protocol addresses
+- Redis Database (you can create a free account from [Upstash](https://upstash.com))
 
 ## Getting Started
 
-First, run the development server:
+To get started with this project, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+1. Clone the repository on your local machine:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```bash
+   git clone https://github.com/keshavsharma25/react-mailchain
+   ```
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+2. Install the dependencies:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+   ```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+3. Add the environment variables:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+   ```bash
+   cp .env.example .env
+   ```
 
-## Learn More
+   ```yaml
+   NEXT_PUBLIC_SECRET_RECOVERY_PHRASE= # retrieve from mailchain settings
+   NEXT_PUBLIC_PRIVATE_MESSAGING_KEY= # retrieve from mailchain settings
+   NEXT_PUBLIC_SENDER_ADDRESS= # Your Mailchain address
+   NEXT_PUBLIC_REDIS_URL= # Redis URL
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. Run the project:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm dev
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+5. Open the project in your browser:
 
-## Deploy on Vercel
+   ```bash
+   http://localhost:3000
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Important Details to Remember
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Mailchain requires either a Secret Recovery Phrase or a Private Messaging Key to send emails to other Web3 identities that it supports. Store your secret recovery phrase or private messaging key securely to prevent unauthorized access.
+- If you suspect that your private messaging key has been compromised, re-register your wallet or protocol address to generate a new private messaging key.
+- Deploying the app on Vercel might generate a gateway timeout error as it takes more than 5 seconds for Mailchain-SDK to respond to requests and Vercel has a timeout of 5 seconds for the free tier.
+
+## Conclusion
+
+We hope you find this project helpful in improving your email communication with Mailchain. If you have any questions or suggestions, feel free to reach out to us on [Twitter](https://twitter.com/skeshav25). Don't forget to give this project a star if you found it useful!
