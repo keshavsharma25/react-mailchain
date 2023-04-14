@@ -7,6 +7,10 @@ type Data = {
   error?: string;
 };
 
+/**
+ * This is an async function that handles a Next.js API request to send a simple email using Mailchain
+ * and returns a response with the result or an error message.
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>

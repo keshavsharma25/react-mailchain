@@ -6,6 +6,12 @@ import {
 import { generateSecureOTP, hashOTP, storeOTPHash } from "./otpUtils";
 import { renderVerifyOTP } from "./renderVerifyOTP";
 
+/**
+ * This function sends an email containing a verification code to a specified mailchain address using
+ * Mailchain-sdk and stores a hashed version of the code.
+ * @param {string} to - The email address of the recipient to whom the verification code will be sent.
+ * @returns An object with two properties: "data" and "error".
+ */
 export const sendMailchainSimple = async (to: string) => {
   const secretRecoveryPhrase = process.env.NEXT_PUBLIC_SECRET_RECOVERY_PHRASE;
 
@@ -14,13 +20,13 @@ export const sendMailchainSimple = async (to: string) => {
   }
   const mailchain = Mailchain.fromSecretRecoveryPhrase(secretRecoveryPhrase);
 
-  const serverAddress = await mailchain.user();
+  const fromAddress = await mailchain.user();
 
   const code = generateSecureOTP();
   const emailHtml = renderVerifyOTP(Number(code));
 
   const { data, error } = await mailchain.sendMail({
-    from: serverAddress.address,
+    from: fromAddress.address,
     to: [to],
     subject: `Your verification code for SwiftSignup registration: ${code}`,
     content: {
@@ -34,6 +40,13 @@ export const sendMailchainSimple = async (to: string) => {
   return { data, error };
 };
 
+/**
+ * This function sends an email containing a verification code to a specific address and stores a
+ * hashed version of the code.
+ * @param {string} toAddress - The email address of the recipient to whom the verification code will be
+ * sent.
+ * @returns An object with two properties: "data" and "error".
+ */
 export const sendMailchainSpecificAddress = async (toAddress: string) => {
   const privateMessagingKey = privateMessagingKeyFromHex(
     process.env.NEXT_PUBLIC_PRIVATE_MESSAGING_KEY!

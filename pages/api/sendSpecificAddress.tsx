@@ -7,6 +7,10 @@ type Data = {
   error?: string;
 };
 
+/**
+ * This is an async function that handles a request and sends an email to a specific address using
+ * Mailchain.
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
