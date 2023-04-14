@@ -13,10 +13,10 @@ import { renderVerifyOTP } from "./renderVerifyOTP";
  * @returns An object with two properties: "data" and "error".
  */
 export const sendMailchainSimple = async (to: string) => {
-  const secretRecoveryPhrase = process.env.NEXT_PUBLIC_SECRET_RECOVERY_PHRASE;
+  const secretRecoveryPhrase = process.env.NEXT_PUBLIC_SECRET_RECOVERY_PHRASE!;
 
-  if (secretRecoveryPhrase == null) {
-    throw new Error("You must provide a secret recovery phrase");
+  if (secretRecoveryPhrase == undefined) {
+    throw new Error("You must provide a secret recovery phrase in .env");
   }
   const mailchain = Mailchain.fromSecretRecoveryPhrase(secretRecoveryPhrase);
 
@@ -48,13 +48,13 @@ export const sendMailchainSimple = async (to: string) => {
  * @returns An object with two properties: "data" and "error".
  */
 export const sendMailchainSpecificAddress = async (toAddress: string) => {
-  const privateMessagingKey = privateMessagingKeyFromHex(
-    process.env.NEXT_PUBLIC_PRIVATE_MESSAGING_KEY!
-  );
+  const pvtMsgKeyHex = process.env.NEXT_PUBLIC_PRIVATE_MESSAGING_KEY!;
 
-  if (privateMessagingKey === undefined) {
+  if (pvtMsgKeyHex === undefined) {
     throw new Error("You must provide a private messaging key in .env");
   }
+
+  const privateMessagingKey = privateMessagingKeyFromHex(pvtMsgKeyHex);
 
   const mailSender = MailSender.fromSenderMessagingKey(privateMessagingKey);
 
