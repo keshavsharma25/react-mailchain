@@ -1,7 +1,7 @@
 # React-Email for Mailchain
 
 This project helps you understand how to create email templates for Mailchain using React-Email. Mailchain is a decentralized messaging protocol that allows users to send and receive messages across different web3 identities. React-Email is a popular library that makes it easy to create and send custom HTML email templates.
-Link to the blog for reference: [Using React-Email to create templates for Mailchain](https://0xkeshav.hashnode.dev/using-react-email-to-create-templates-for-mailchain)
+Link to the blog for reference: [Using React-Email to create templates for Mailchain](https://skeshav.hashnode.dev/using-react-email-to-create-templates-for-mailchain)
 
 <p align="center">
    <img src="https://user-images.githubusercontent.com/76066586/232123160-aa741223-f7ff-4128-8e71-fc02cd197ef1.gif" width="720" />
